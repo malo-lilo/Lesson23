@@ -1,15 +1,14 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace DemoApiTesting
+namespace DemoApiTesting.httpClient
 {
-    public class PetStoreTests
+    public class GetPlanetsTests
     {
 
         private const string Host = "https://swapi.dev/api";
