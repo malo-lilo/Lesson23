@@ -16,12 +16,12 @@ namespace DemoApiTesting.ContractTests
         private const string Host = "https://swapi.dev/api";
 
         [Test]
-        [TestCase(1)]
+       
         [TestCase(2)]
         [TestCase(3)]
         [TestCase(4)]
         [TestCase(5)]
-        [TestCase(6)]
+       
         public async Task CheckContractGetPlanetPositiveTesting(int page)
         {
             string Api = $"/planets/?page={page}";
@@ -29,6 +29,19 @@ namespace DemoApiTesting.ContractTests
             var response = await client.GetAsync(new Uri(Host + Api), new CancellationToken());
             
             JSchema schema = JSchema.Parse(GetFileAsString("getPlanets.Positive.json"));
+            await CheckValidationResponseMessageBySchemaAsync(response, schema);
+        }
+        [Test]
+        [TestCase(0)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public async Task CheckContractGetPlanetNegativeTesting(int page)
+        {
+            string Api = $"/planets/?page={page}";
+            var client = new HttpClient() ;
+            var response = await client.GetAsync(new Uri(Host + Api), new CancellationToken());
+            
+            JSchema schema = JSchema.Parse(GetFileAsString("getPlanets.Negative.json"));
             await CheckValidationResponseMessageBySchemaAsync(response, schema);
         }
         
